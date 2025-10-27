@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 @import "tw-animate-css";
 
-.App{
-  cursor: url('cursor.png'), auto;
+*{
+  cursor: url('cursor.png'), auto !important;
 }
 @custom-variant dark (&:is(.dark *));
 

@@ -160,7 +160,7 @@ export default function RoomsSection() {
             >
               <Card className="overflow-hidden group cursor-pointer hover:shadow-2xl transition-shadow duration-300">
                 <div
-                  className="relative aspect-[4/3] overflow-hidden"
+                  className="relative aspect-4/3 overflow-hidden"
                   onClick={() => setSelectedRoom(room)}
                 >
                   <img
@@ -208,7 +208,7 @@ export default function RoomsSection() {
 
                   <Button
                     onClick={() => setSelectedRoom(room)}
-                    className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                    className="w-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
                   >
                     View Details
                   </Button>
@@ -269,7 +269,7 @@ export default function RoomsSection() {
                     </ul>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                <Button className="w-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
                   Book This Room
                 </Button>
               </div>

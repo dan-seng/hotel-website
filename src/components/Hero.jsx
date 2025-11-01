@@ -8,7 +8,8 @@ export default function Hero() {
 
 
     return (
-        <div className="relative h-screen overflow-hidden">
+       <section id="">
+         <div className="relative h-screen overflow-hidden">
             <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
@@ -68,5 +69,6 @@ export default function Hero() {
         </div>
         </motion.div>
         </div>
+       </section>
     )
 }

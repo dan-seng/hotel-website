@@ -7,7 +7,7 @@ export default function FooterSection() {
 
   const footerLinks = {
     hotel: [
-      {label: "Home", href: "#"},
+      {label: "Home", href: "#home"},
       { label: "About Us", href: "#about" },
       { label: "Our Rooms", href: "#rooms" },
       { label: "Gallery", href: "#gallery" },
@@ -51,7 +51,7 @@ export default function FooterSection() {
                 return (
                   <a
                     key={index}
-                    href={social.href}
+                    href={social.href}  
                     target="_blank"
                     aria-label={social.label}
                     className="p-2 bg-gray-800 rounded-full hover:bg-amber-500 transition-colors"

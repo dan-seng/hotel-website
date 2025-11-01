@@ -269,7 +269,9 @@ export default function RoomsSection() {
                     </ul>
                   </div>
                 </div>
-                <Button className="w-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                <Button
+                 onClick={() => alert("Booked")}
+                className="w-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
                   Book This Room
                 </Button>
               </div>

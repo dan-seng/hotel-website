@@ -2,13 +2,18 @@ import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 export default function Hero() {
 
-    const onBookNowClick = () => {
-        console.log("Book Now clicked");
-    }
+   
+      const onBookClick = () => {
+        const bookingSection = document.getElementById("booking-section");
+        if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+
 
 
     return (
-       <section id="">
+       <section id="home">
          <div className="relative h-screen overflow-hidden">
             <motion.div
         initial={{ scale: 1.1 }}
@@ -58,7 +63,7 @@ export default function Hero() {
             >
               <Button
                 size="lg"
-                onClick={onBookNowClick}
+                onClick={onBookClick}
                 className="bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-12 py-6 shadow-2xl"
               >
                 Book Your Stay

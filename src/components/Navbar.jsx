@@ -10,9 +10,12 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-   const onBookNowClick = () => {
-    alert("Book Now clicked");
-   };
+  const onBookClick = () => {
+    const bookingSection = document.getElementById("booking-section");
+    if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const toggleTheme = () => {
     setIsDarkMode((prev) => !prev);
@@ -29,8 +32,22 @@ export default function Navigation() {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Close mobile menu first
       setIsMobileMenuOpen(false);
+      
+      // Wait for menu animation to complete before scrolling
+      setTimeout(() => {
+        const navbarHeight = 80; // Approximate height of the navbar
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }, 300); // Match the animation duration
+    } else {
+      console.warn(`Element with id "${id}" not found`);
     }
   };
 
@@ -39,8 +56,7 @@ export default function Navigation() {
     { id: "about", label: "About" },
     { id: "rooms", label: "Rooms" },
     { id: "gallery", label: "Gallery" },
-    { id: "testimonials", label: "Reviews" },
-    { id: "contact", label: "Contact" },
+    { id: "booking-section", label: "Book Now" },
   ];
 
   return (
@@ -110,7 +126,7 @@ export default function Navigation() {
             </Button>
 
             <Button
-              onClick={onBookNowClick}
+              onClick={onBookClick}
               className="hidden md:inline-flex bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
             >
               Book Now
@@ -157,7 +173,7 @@ export default function Navigation() {
                 ))}
                 <Button
                   onClick={() => {
-                    onBookNowClick();
+                    onBookClick();
                     setIsMobileMenuOpen(false);
                   }}
                   className="bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"

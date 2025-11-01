@@ -39,7 +39,7 @@ export default function BookingForm() {
   };
 
   return (
-    <section className="py-20 bg-linear-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
+    <section id="booking-section" className="py-20 bg-linear-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -12,12 +12,12 @@ export default function App() {
     return (
         <div className='App'>
             <Navbar />
-            <Hero />
-            <About />
-            <RoomSection />
-            <GallerySection />
-            <BookingForm />
-            <FooterSection />
+            <Hero id="home"/>
+            <About id="about"/>
+            <RoomSection id="rooms"/>
+            <GallerySection id="gallery"/>
+            <BookingForm id="booking-section"/>
+            <FooterSection id="footer"/>
         </div>
     )
 }

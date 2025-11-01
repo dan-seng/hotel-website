@@ -50,7 +50,7 @@ export default function About() {
               transition={{ delay: 0.4 }}
               className="text-gray-600 dark:text-gray-300 mb-4"
             >
-              For over two decades, Luxe Haven has been the epitome of refined elegance
+              For over two decades, LuxuryHotel has been the epitome of refined elegance
               and unparalleled service. Nestled in the heart of the city, our hotel
               offers a sanctuary where timeless sophistication meets modern comfort.
             </motion.p>

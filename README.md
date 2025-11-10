@@ -37,13 +37,13 @@
 
 ---
 
-## 🧩 Tech Stack (icons only — 55px)
+## 🧩 Tech Stack
 
 <p>
   <img height="55" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />&nbsp;
   <img height="55" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Vitejs-logo.svg/2078px-Vitejs-logo.svg.png" alt="Vite" />&nbsp;
-  <img height="55" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />&nbsp;
-  <img height="55" src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/vector-icons/brand-radix-ui-hs1d94s6wldxmzuoh8kx8.png/brand-radix-ui-kw28pr3fduforncwo4odtm.png?_a=DATAg1AAZAA0" alt="Radix UI (Radix)"/> &nbsp;
+  <img height="55"src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />&nbsp;
+  <img height="55" src="https://avatars.githubusercontent.com/u/75042455?s=280&v=4" alt="Radix UI (Radix)"/> &nbsp;
   <img height="55" src="https://avatars.githubusercontent.com/u/66879934?v=4" alt="Lucide (icons placeholder)" />&nbsp;
   <img height="55" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCq5gse3kEA76gI2S7FHh4TGq6-jE3nGlPQg&s" alt="Framer Motion" />&nbsp;
 </p>

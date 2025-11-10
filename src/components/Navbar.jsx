@@ -1,190 +1,156 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import logo from '../assets/logo.png'
+import { motion, AnimatePresence, animate } from "framer-motion";
+import logo from "../assets/logo.png";
 
-
-export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const onBookClick = () => {
-    const bookingSection = document.getElementById("booking-section");
-    if (bookingSection) {
-        bookingSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-  };
+export default function Navbar({ isDarkMode, toggleTheme, onBookNowClick }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      // Close mobile menu first
-      setIsMobileMenuOpen(false);
-      
-      // Wait for menu animation to complete before scrolling
-      setTimeout(() => {
-        const navbarHeight = 80; // Approximate height of the navbar
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const target = document.querySelector(targetId);
+    if (!target) return;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
-      }, 300); // Match the animation duration
-    } else {
-      console.warn(`Element with id "${id}" not found`);
-    }
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + window.scrollY;
+
+    animate(start, end, {
+      type: "spring",
+      stiffness: 60,
+      damping: 15,
+      mass: 0.3,
+      onUpdate: (value) => window.scrollTo(0, value),
+    });
+
+    setIsMenuOpen(false);
   };
 
-  const navLinks = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "rooms", label: "Rooms" },
-    { id: "gallery", label: "Gallery" },
-    { id: "booking-section", label: "Book Now" },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-2"
-          >
-              <img src={logo} alt="logo" className="w-10 h-10 rounded" />
-            <h1
-              className={`text-2xl transition-colors cursor-pointer ${
-                isScrolled
-                  ? "text-gray-900 dark:text-white"
-                  : "text-white drop-shadow-lg"
-              }`}
-              onClick={() => scrollToSection("home")}
-            >
-            
-              LuxuryHotel
-            </h1>
-          </motion.div>
-
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link, index) => (
-              <motion.button
-                key={link.id}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
-                onClick={() => scrollToSection(link.id)}
-                className={`hover:opacity-70 transition-opacity ${
-                  isScrolled
-                    ? "text-gray-700 dark:text-gray-300"
-                    : "text-white drop-shadow-lg"
-                }`}
-              >
-                {link.label}
-              </motion.button>
-            ))}
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="shrink-0">
+            <img className="h-15 w-auto rounded-lg" src={logo} alt="Logo" />
           </div>
 
-         
-          <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-8">
+              {["home", "about", "rooms", "gallery", "testimonials", "contact"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  onClick={(e) => handleSmoothScroll(e, `#${item}`)}
+                  className="text-gray-700 dark:text-gray-200 hover:text-blue-400 dark:hover:text-blue-400 px-3 py-2 text-lg font-medium capitalize"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className={
-                isScrolled
-                  ? "text-gray-700 dark:text-gray-300"
-                  : "text-white hover:bg-white/20"
-              }
+              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="Toggle theme"
             >
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
 
             <Button
-              onClick={onBookClick}
-              className="hidden md:inline-flex bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+              onClick={onBookNowClick}
+              className="bg-orange-200 hover:bg-orange-300 text-black rounded-full px-6 py-2"
             >
               Book Now
             </Button>
+          </div>
 
-           
+          <div className="md:hidden flex items-center">
             <Button
               variant="ghost"
               size="icon"
-              className={`md:hidden ${
-                isScrolled
-                  ? "text-gray-700 dark:text-gray-300"
-                  : "text-white hover:bg-white/20"
-              }`}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
+      </nav>
 
-      
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 pb-4"
-            >
-              <div className="flex flex-col gap-3">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => scrollToSection(link.id)}
-                    className="text-left py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    {link.label}
-                  </button>
-                ))}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white dark:bg-gray-900 overflow-hidden"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {["home", "about", "rooms", "gallery", "testimonials", "contact"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  onClick={(e) => handleSmoothScroll(e, `#${item}`)}
+                  className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md capitalize"
+                >
+                  {item}
+                </a>
+              ))}
+
+              <div className="pt-4 pb-2 flex items-center justify-between px-3">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {isDarkMode ? "Light Mode" : "Dark Mode"}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    toggleTheme();
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  aria-label="Toggle theme"
+                >
+                  {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                </Button>
+              </div>
+
+              <div className="pt-2">
                 <Button
                   onClick={() => {
-                    onBookClick();
-                    setIsMobileMenuOpen(false);
+                    onBookNowClick();
+                    setIsMenuOpen(false);
                   }}
-                  className="bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+                  className="w-full justify-center bg-primary-600 hover:bg-primary-700 text-white"
                 >
                   Book Now
                 </Button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
